@@ -1,19 +1,21 @@
 #include <iostream>
 using namespace std;
 int main(){
-	int n, k;
+	int n, k; // n : 행렬의 크기, k : k 번 째 값
 	cin >> n >> k;
-	// k가 몇번 째 대각선에 존재하는지 알아야함 
-	// 1, 3, 6, 10, 15, 21, 28, ...
-	int sum = 0;
-	int dia;
-	for(int i = 1 ; i <= n ; i ++){
-		sum += i;
-		if(k > sum){
-			dia = i+1;
+	int first = 1, last = n;
+	int mid = 0;
+	int result = 0;
+	while(first <= last){
+		mid = (first + last)/2;
+		if(mid * mid == k){
+			result = mid;
+			break;
 		}
+		else if(mid * mid < k) first = mid + 1;
+		else last = mid - 1;
 	}
-	int cur = k - (dia * (dia-1)) /2; 
-	cout << dia << ": " << cur;
+	if(result == 0) result = mid;
+	cout << result;
 	return 0;
 }
